@@ -1,0 +1,41 @@
+image: {{ .Image }}
+
+services:
+  {{- range $service := .Services }}
+    - {{ $service }}
+  {{- end }}
+variables:
+  {{- range $var := .Variables }}
+    {{- range $key, $value := $var }}
+      {{ $key }}: {{$value}}
+    {{- end}}
+  {{- end }}
+stages:
+ {{- range $job := .Jobs}}
+  - {{ $job.Stage }}
+ {{- end }}
+
+{{- range $job := .Jobs }}
+{{$job.Name}}:
+    image: {{ $job.Image}}
+    stage: {{ $job.Stage }}
+    variables:
+       {{- range $keyVariable, $ValueVariable := $job.Variable }}
+        {{-  range $key, $value := $ValueVariable }}
+        {{ $key }}: {{ $value }}
+        {{- end}}
+      {{- end }}
+    only: 
+      {{- range $only := $job.Only}}
+        - "{{$only}}"
+      {{- end }}
+    before_script: 
+      {{- range $beforeScript := $job.BeforeScript}}
+        - $beforeScript
+      {{- end}}
+    script: 
+      {{- range $script := $job.Script}}
+        - "{{ $script }}"
+      {{- end}}
+{{- end }}
+

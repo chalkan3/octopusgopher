@@ -1,0 +1,33 @@
+image:  docker:19.03.12
+services:
+  - docker:19.03.12-dind
+variables:
+  - TEST1: $TEST
+  - TEST2: $TEST3
+jobs:
+  - name: "job1"
+    stage: "build"
+    variable: 
+      - TEST1: "teste1"
+      - TEST2: "teste2"
+    only: 
+      - "test"
+    before_script: 
+      - "teste2"
+    script: 
+      - echo $TESTE1
+  - name: "job2"
+    stage: "sum"
+    variable: []
+    only: []
+    before_script: []
+    script: 
+      - echo hello
+  - name: "job3"
+    stage: "deploy"
+    variable: []
+    only: []
+    before_script: []
+    script: 
+      - echo hi
+

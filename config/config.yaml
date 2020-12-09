@@ -1,0 +1,15 @@
+plugins:
+    # - name: hello
+    #   methods:
+    #     - "Hello"
+    #     - "Now"
+    # - name: something
+    #   methods:
+    #     - Something
+gitlab:
+  project_id: 22953969
+  branch_target: pipeline
+  commit: change_commit
+  api_key: LnR2DzxNkMB6U1B5geQS
+  api_path: https://gitlab.com/api/v4
+
